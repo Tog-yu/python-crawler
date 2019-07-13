@@ -1,0 +1,31 @@
+import requests
+from bs4 import BeautifulSoup
+
+def gethtml(url):
+    r = requests.get(url)
+    try:
+        r.raise_for_status()
+        return r.text
+    except:
+        print("wrong")
+
+def anylisB(html):
+    movie_list = []
+    soup = BeautifulSoup(html,"lxml")
+    list = soup.find_all("div",class_= "info")
+    for link in list:
+        title = link.find("div",class_="hd").a.span.text
+        title2 = link.find("span",class_="other").text
+        # print(title2.replace("\xa0/\xa0"," "))
+        # print(title2)
+
+        movie_list.append([title,title2])
+    return movie_list
+
+def main():
+    for i in range(2):
+        url = "https://movie.douban.com/top250?start=" + str(i*25)
+        html = gethtml(url)
+        list1 = anylisB(html)
+        print(list1)
+main()
