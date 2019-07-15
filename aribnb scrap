@@ -1,0 +1,22 @@
+from selenium import webdriver
+
+def main(page):
+    driver = webdriver.Chrome("chromedriver1.exe")
+    url = "https://www.airbnb.cn/s/%E5%AE%81%E6%B3%A2/homes?refinement_paths%5B%5D=%2Fhomes&s_tag=Si21eXhL&items_offset={}&checkin=2019-07-25&checkout=2019-07-26&place_id=ChIJ91gIY1RjTTQRc_HMRvgjh5Q".format(str(page*18))
+    driver.get(url)
+    # print(driver.page_source)
+    info = driver.find_elements_by_css_selector("div._1wbi47zw")
+    for each in info:
+        title = each.find_element_by_css_selector("div._qhtkbey")
+        title = title.text
+        # print(title)
+        comment = each.find_element_by_css_selector("span._1clmxfj")
+        comment = comment.text
+        # print(comment)
+        price = each.find_element_by_css_selector("div._18gk84h")
+        price = price.text
+        print(title,price,comment)
+    driver.close()
+
+for i in range(20):
+    main(i)
