@@ -53,3 +53,25 @@ def main(page):
 
 for i in range(1):
     main(i)
+===============================================================================================================================
+（失败）
+from selenium import webdriver
+
+driver = webdriver.Chrome("chromedriver1.exe")
+driver.get("https://www.airbnb.cn/rooms/20769330?location=%E5%AE%81%E6%B3%A2&check_in=2019-07-25&check_out=2019-07-26&source_impression_id=p3_1563162902_QBDNO3hpRuO7rWBa&s=4cl7WdDf")
+# info = driver.find_element_by_css_selector("div._qlq27g")
+# info.click()
+# driver.switch_to_window(driver.window_handles[1])
+print(driver.page_source)
+title = driver.find_element_by_css_selector("div._1d4aktw5")
+title = title.text
+print(title)
+comments = driver.find_elements_by_css_selector("div._11dqbld7")
+print(comments)
+for comment in comments:
+    comment = comment.text
+    print(comment)
+driver.close()
+//想爬取动态的评论，失败的一塌糊涂，哎
+看不懂page—souse的源代码
+根本找不到评论
