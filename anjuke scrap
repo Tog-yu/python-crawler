@@ -1,0 +1,33 @@
+import requests
+from bs4 import BeautifulSoup
+
+
+def getH(url):
+    try:
+        kv1 = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'}
+        r = requests.get(url, headers=kv1)
+        r.raise_for_status()
+        return r.text
+    except:
+        print("wrong")
+
+def analyB(html):
+    soup = BeautifulSoup(html,"lxml")
+    house_list = soup.find_all('li', class_= "list-item")
+    for house in house_list:
+        title = house.find('div',class_ = "house-title").a.text.strip()
+        detail1 = house.find('div',class_ = "details-item").contents[1].text.strip()
+        detail2 = house.find('div', class_="details-item").contents[3].text.strip()
+        detail3 = house.find('div', class_="details-item").contents[5].text.strip()
+        detail4 = house.find('div', class_="details-item").contents[7].text.strip()
+        address = house.find('span',class_ = "comm-address").text.strip()
+        print(title)
+        print(detail1,detail2,detail3,detail4)
+        print(address)
+def main(page):
+    url = "https://nb.anjuke.com/sale/p"+str(page)
+    html = getH(url)
+    analyB(html)
+
+for i in range(20):
+    main(i)
