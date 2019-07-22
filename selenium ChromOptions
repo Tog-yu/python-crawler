@@ -10,3 +10,10 @@ options.add_experimental_option('prefs',prefs)
  
 browser = webdriver.Chrome(chrome_options=options)
 browser.get('http://www.c's/')
+
+=========================================================
+用手机游览器的user agent
+options = webdriver.ChromeOptions()
+options.add_argument('user-agent="Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19"')
+driver = webdriver.Chrome("chromedriver1.exe",options = options)
+driver.get('https://wenku.baidu.com/view/2a71d7cfb7360b4c2f3f6451.html')
